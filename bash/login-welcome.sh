@@ -16,17 +16,15 @@ title="Overlord"
 USER="URDIP"
 hostname=$(hostname)
 time=$(date +'%H:%M %p on %A')
-
-
-
-###############
-# Main        #
-###############
 Var=$(cat <<EOF
 Welcome to planet $hostname, "$title $USER!"
 It is $time
 EOF
 )
+
+###############
+# Main        #
+###############
 
 cat <<EOF
 $(cowsay "$Var")

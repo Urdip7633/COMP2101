@@ -37,13 +37,13 @@
 Output=$(cat <<EOF
 Hostname        : $(hostname)
 LAN Address     : $(ip a s "$(ip a |awk '/: e/{gsub(/:/,"");print $2}')"|awk '/inet /{gsub(/\/.*/,"");print $2}')
-LAN Hostname    : $(getent hosts "$(ip a s "$(ip a |awk '/: e/{gsub(/:/,"");print $2}')")"|awk '/inet /{gsub(/\/.*/,"");print $2}' | awk '{print $2}')
+LAN Hostname    : $(getent hosts "$(ip a s "$(ip a |awk '/: e/{gsub(/:/,"");print $2}')")"|awk '/inet /{gsub(/\/.*/,"");print $2}' | awk '{print $3}')
 External IP     : $(curl -s icanhazip.com)
 External Name   : $(getent hosts "$(curl -s icanhazip.com)" | awk '{print $2}')
-Router Address  : $(ip route show | awk '/default/ {print $3}')
-Router Hostname : $(getnet hosts "$(ip route show | awk '/default/ {print $3}')")
-Network Address : $(ip route get 1.2.3.4 | awk '{print $7}')
-Network Hostname: $(getent hosts "$(ip route get 1.2.3.4 | awk '{print $7}')")
+Router Address  : $(getent hosts | awk '/192/{print $1}')
+Router Hostname : $(getent hosts | awk '/192/{print $2}')
+Network Address : $(getent networks | awk '{print $2}')
+Network Hostname: $(getent networks | awk '{print $1}')
 EOF
 )
 #======================================

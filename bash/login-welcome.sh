@@ -18,6 +18,7 @@ hostname=$(hostname)
 time=$(date +'%H:%M %p on %A')
 Var=$(cat <<EOF
 Welcome to planet $hostname, "$title $USER!"
+
 It is $time
 EOF
 )

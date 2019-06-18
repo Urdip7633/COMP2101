@@ -12,7 +12,9 @@
 ###############
 # Variables   #
 ###############
-title="Overlord"
+titles=("Overlord" "Almighty" "Smartguy" "Sneakyguy" "Starboy" "Thor" "Batman")
+My_index=$((RANDOM % ${#titles[@]}))
+title=${titles[$My_index]}
 USER="URDIP"
 hostname=$(hostname)
 time=$(date +'%H:%M %p on %A')

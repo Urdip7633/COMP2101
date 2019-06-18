@@ -34,16 +34,21 @@
 
 #Variables
 #========================
+RouterAddress=$(grep '.13' /etc/hosts | awk '{print $1}')
+RouterHostname=$(getent hosts "$RouterAddress" | awk '{print $2}')
+NetworkAddress=$(grep '.3' /etc/networks | awk '{print $2}')
+NetworkHostname=$(getent networks "$NetworkAddress" | awk '{print $1}')
+
 Output=$(cat <<EOF
 Hostname        : $(hostname)
 LAN Address     : $(ip a s "$(ip a |awk '/: e/{gsub(/:/,"");print $2}')"|awk '/inet /{gsub(/\/.*/,"");print $2}')
 LAN Hostname    : $(getent hosts "$(ip a s "$(ip a |awk '/: e/{gsub(/:/,"");print $2}')")"|awk '/inet /{gsub(/\/.*/,"");print $2}' | awk '{print $3}')
 External IP     : $(curl -s icanhazip.com)
 External Name   : $(getent hosts "$(curl -s icanhazip.com)" | awk '{print $2}')
-Router Address  : $(grep '.13' /etc/hosts | awk '{print $1}')
-Router Hostname : $(getent hosts "$( grep '.13' /etc/hosts | awk '{print $1}')" | awk '{print $2}')
-Network Address : $(grep '.3' /etc/networks | awk '{print $2}')
-Network Hostname: $(getent networks "$(grep '.3' /etc/networks | awk '{print $2}')" | awk '{print $1}')
+Router Address  : $RouterAddress
+Router Hostname : $RouterHostname
+Network Address : $NetworkAddress
+Network Hostname: $NetworkHostname
 EOF
 )
 #======================================
